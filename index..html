@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Verificação - Não sou um robô</title>
+    <!-- Meta tags para melhor compatibilidade e responsividade -->
+    <meta name="theme-color" content="#1877f2">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* pequeno toque visual, mas sem comprometer acessibilidade */
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b2b5c 0%, #0a4c8a 100%);
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* fundo com textura sutil de ondas / gride para dar profundidade */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        /* container principal para centralizar o botão perfeitamente */
+        .center-container {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Botão principal - elegante, azul coerente, com sombra e hover */
+        .btn-nao-robô {
+            background: linear-gradient(105deg, #1e6df2, #0a5ad4);
+            border: none;
+            border-radius: 80px;
+            padding: 1.2rem 3rem;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            cursor: pointer;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.2) inset, 0 0 0 2px rgba(0,0,0,0.05) inset;
+            transition: all 0.25s ease-out;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            backdrop-filter: blur(2px);
+            min-width: 280px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* responsivo: se tela muito pequena, ajusta fonte e padding */
+        @media (max-width: 550px) {
+            .btn-nao-robô {
+                font-size: 1.4rem;
+                padding: 0.9rem 1.8rem;
+                white-space: normal;
+                min-width: 220px;
+            }
+        }
+
+        /* Efeito de pulsação suave para chamar atenção (opcional) */
+        .btn-nao-robô:hover {
+            transform: scale(1.02);
+            background: linear-gradient(105deg, #2c7eff, #0f62e0);
+            box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.3) inset;
+        }
+
+        .btn-nao-robô:active {
+            transform: scale(0.98);
+            transition: 0.05s;
+        }
+
+        /* spinner sutil para evento de clique (feedback de carregamento) */
+        .btn-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.7s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* rodapé opcional, apenas crédito discreto */
+        .info-footer {
+            position: fixed;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            font-family: monospace;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+    <!-- Pixel do TikTok integrado (código fornecido) -->
+    <script>
+        // Inicializa o pixel TikTok no carregamento da página imediatamente
+        !function (w, d, t) {
+            w.TiktokAnalyticsObject = t;
+            var ttq = w[t] = w[t] || [];
+            ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent", "revokeConsent", "grantConsent"];
+            ttq.setAndDefer = function (t, e) {
+                t[e] = function () {
+                    t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                }
+            };
+            for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+            ttq.instance = function (t) {
+                for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
+                return e
+            };
+            ttq.load = function (e, n) {
+                var r = "https://analytics.tiktok.com/i18n/pixel/events.js",
+                    o = n && n.partner;
+                ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._i[e]._u = r, ttq._t = ttq._t || {}, ttq._t[e] = +new Date, ttq._o = ttq._o || {}, ttq._o[e] = n || {};
+                n = document.createElement("script");
+                n.type = "text/javascript", n.async = !0, n.src = r + "?sdkid=" + e + "&lib=" + t;
+                e = document.getElementsByTagName("script")[0];
+                e.parentNode.insertBefore(n, e)
+            };
+            ttq.load('D8DFQSBC77UDG683I2J0');
+            ttq.page(); // Evento de página view já disparado
+        }(window, document, 'ttq');
+    </script>
+</head>
+<body>
+
+<div class="center-container">
+    <button id="naoRoboBtn" class="btn-nao-robô">
+        🤖 Não sou um robô
+    </button>
+</div>
+<div class="info-footer">
+    ⚡ verificação segura • redirecionamento para Telegram
+</div>
+
+<script>
+    // ----- SISTEMA DE EVENTOS RASTREÁVEIS TIKTOK (TODOS POSSÍVEIS, SEM COMPRAS) -----
+    // Como a conversão de compra ocorre no Telegram, NÃO adicionamos evento 'CompletePayment' ou 'AddPaymentInfo'
+    // porém todos os outros eventos padrão de engajamento, conteúdo, formulários, cliques e lead são inseridos.
+    // Garantimos que a cada interação relevante do usuário dispare um ou mais eventos do TikTok Pixel.
+    
+    // Função auxiliar segura para disparar eventos TikTok, garantindo que o ttq esteja carregado
+    function trackTikTokEvent(eventName, parameters = {}) {
+        if (typeof ttq !== 'undefined' && ttq && typeof ttq.track === 'function') {
+            try {
+                ttq.track(eventName, parameters);
+                console.log(`[TikTok Pixel] Evento rastreado: ${eventName}`, parameters);
+            } catch(e) {
+                console.warn("[TikTok Pixel] Erro ao rastrear evento:", e);
+            }
+        } else {
+            // Fallback: aguarda um pequeno delay e tenta novamente (caso pixel ainda carregando)
+            setTimeout(() => {
+                if (typeof ttq !== 'undefined' && ttq && typeof ttq.track === 'function') {
+                    try {
+                        ttq.track(eventName, parameters);
+                        console.log(`[TikTok Pixel] (delay) Evento rastreado: ${eventName}`);
+                    } catch(e) { console.warn(e); }
+                } else {
+                    console.warn(`[TikTok Pixel] Pixel não disponível para evento: ${eventName}`);
+                }
+            }, 400);
+        }
+    }
+
+    // ----- 1. EVENTO DE PÁGINA (PageView) já foi disparado pelo ttq.page() no carregamento original.
+    //     Mas para garantir redundância suave, não repetimos para não duplicar, mas vamos complementar com outros:
+
+    // 2. EVENTO DE SCROLL (profundidade de rolagem) - considerado evento padrão rastreável (ScrollDepth)
+    let scrollTriggered25 = false, scrollTriggered50 = false, scrollTriggered75 = false, scrollTriggered90 = false;
+    function handleScrollDepth() {
+        const winScroll = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return;
+        const scrollPercent = (winScroll / docHeight) * 100;
+        
+        if (!scrollTriggered25 && scrollPercent >= 25) {
+            scrollTriggered25 = true;
+            trackTikTokEvent('ScrollDepth', { depth_percent: 25, depth_type: 'percentage' });
+        }
+        if (!scrollTriggered50 && scrollPercent >= 50) {
+            scrollTriggered50 = true;
+            trackTikTokEvent('ScrollDepth', { depth_percent: 50, depth_type: 'percentage' });
+        }
+        if (!scrollTriggered75 && scrollPercent >= 75) {
+            scrollTriggered75 = true;
+            trackTikTokEvent('ScrollDepth', { depth_percent: 75, depth_type: 'percentage' });
+        }
+        if (!scrollTriggered90 && scrollPercent >= 90) {
+            scrollTriggered90 = true;
+            trackTikTokEvent('ScrollDepth', { depth_percent: 90, depth_type: 'percentage' });
+        }
+    }
+    window.addEventListener('scroll', handleScrollDepth);
+    // se a página tiver altura pequena, já verifica uma vez
+    setTimeout(handleScrollDepth, 1000);
+    
+    // 3. EVENTO DE TEMPO NA PÁGINA (TimeOnSite) - dispara a cada 30 segundos até o 2 min e depois hits menos frequentes
+    let timeIntervalCounter = 0;
+    const timeTrackingInterval = setInterval(() => {
+        timeIntervalCounter += 30;
+        let secondsElapsed = timeIntervalCounter;
+        // Dispara para marcos de 30s, 60s, 90s, 120s, 180s, 300s...
+        if (secondsElapsed === 30 || secondsElapsed === 60 || secondsElapsed === 90 || secondsElapsed === 120 || secondsElapsed === 180 || secondsElapsed === 300) {
+            trackTikTokEvent('TimeOnSite', { seconds_elapsed: secondsElapsed });
+        }
+        // Limpa após 10 minutos para não sobrecarregar
+        if (secondsElapsed >= 600) clearInterval(timeTrackingInterval);
+    }, 30000);
+    
+    // 4. EVENTO DE CLIQUE GENÉRICO (Click) - rastrear cliques no documento para comportamento geral
+    //    mas vamos filtrar para não duplicar o clique do botão principal, contudo podemos registrar clique em qualquer elemento
+    document.addEventListener('click', function(e) {
+        // Identifica o elemento clicado, para contexto
+        let targetInfo = e.target.tagName;
+        if (e.target.id === 'naoRoboBtn') {
+            // O clique do botão principal será tratado separadamente para mais precisão, evitando duplicidade imediata
+            return;
+        }
+        // Para qualquer outro clique (links, divs, etc), registra evento custom 'ClickButton' ou 'ClickElement'
+        // TikTok possui evento padrão 'Click' ? Evento comum é 'ButtonClick' mas recomenda-se usar evento personalizado ou padrão 'Contact'
+        // Usaremos 'ClickElement' como evento padrão de interação (track)
+        trackTikTokEvent('ClickElement', {
+            element_type: targetInfo,
+            element_id: e.target.id || 'no-id',
+            element_class: e.target.className || ''
+        });
+    });
+    
+    // 5. EVENTO DE MOVIMENTO DO MOUSE E POTENCIAL ATIVIDADE (MouseMovement) - padrão para engajamento inicial
+    let mouseMoved = false;
+    document.addEventListener('mousemove', function onceMove() {
+        if (!mouseMoved) {
+            mouseMoved = true;
+            trackTikTokEvent('MouseMove', { action: 'first_interaction' });
+        }
+    });
+    
+    // 6. EVENTO DE FORMULÁRIO - mesmo não tendo formulário explícito, podemos criar um campo escondido ou apenas escutar input (cria interação)
+    // Como boa prática: monitorar qualquer campo de entrada / textarea (caso o usuário interaja com alguma área imaginária)
+    // Mas não há campo no layout, porém adicionamos um tracking para quando o usuário "selecionar" texto ou copiar - são sinais de engajamento.
+    document.addEventListener('copy', function() {
+        trackTikTokEvent('CopyContent', { content_type: 'text_selection' });
+    });
+    document.addEventListener('selectstart', function() {
+        // isso indica que o usuário está selecionando texto na página (engajamento)
+        // mas para não floodar, usamos flag com timeout
+        if (!window._copySelectFlag) {
+            window._copySelectFlag = true;
+            trackTikTokEvent('StartSelect', { action: 'text_selection_begin' });
+            setTimeout(() => { window._copySelectFlag = false; }, 5000);
+        }
+    });
+    
+    // 7. EVENTO DE SUBMIT (mesmo sem form, mas podemos simular um evento de 'Lead' genérico pela interação de clique no botão, contudo faremos separado)
+    // 8. EVENTO DE 'CompleteRegistration' não tem formulário de registro, mas o clique no botão não é registro, porém, podemos considerar a intenção de acesso?
+    //    Vamos mapear no botão principal os seguintes eventos (Lead, SubmitForm, CustomizeProduct ? não aplicável, mas faremos eventos relevantes)
+    
+    // 9. EVENTO DE 'ViewContent' (visualização de conteúdo relevante) - a página já foi carregada, ttq.page() é semelhante, mas adicionamos ViewContent 
+    //    assim que o usuário permanece 3 segundos (mostra que consumiu conteúdo)
+    setTimeout(() => {
+        trackTikTokEvent('ViewContent', {
+            content_name: 'Página Verificação Anti Robô',
+            content_type: 'landing_page',
+            content_id: 'nao_robot_verification'
+        });
+    }, 3000);
+    
+    // 10. EVENTO DE 'Search' caso o usuário use o atalho de pesquisa? Improvável. Mas vamos adicionar um detection de "Find in page" ?
+    //     opcionalmente, escutamos evento de pressionar Ctrl+F (pesquisar)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'f' || e.key === 'F')) {
+            trackTikTokEvent('Search', { search_term_source: 'browser_search_intent' });
+        }
+        // também evento generico de tecla pressionada (indicativo de engajamento)
+        if (!window._keyTracked) {
+            window._keyTracked = true;
+            trackTikTokEvent('KeyPress', { first_key: e.key });
+        }
+    });
+    
+    // 11. EVENTO DE 'AddToWishlist' não é um ecommerce, mas podemos simular um interesse? não forçamos. Em vez disso, evento de 'Contact' por telefone? Não aplicável.
+    //    Mas evento de 'InitiateCheckout' não tem checkout, porem dentro do botão que redireciona para telegram, podemos considerar como 'StartTrial' ou 'Lead'
+    //    faremos no clique do botão principal uma série de eventos: Lead, Contact, CustomizeProduct? não, mas vamos colocar 'Contact', 'InitiateCheckout' simbólico? não é compra.
+    //    Somente eventos não relacionados a compra: 'Lead', 'Contact', 'CompleteRegistration' não faz sentido, mas vamos incluir Lead que é genérico.
+    
+    // Sessão: Botão principal + eventos de clique, lead, contato e redirecionamento.
+    const botao = document.getElementById('naoRoboBtn');
+    if (botao) {
+        // Adicionar spinner (feedback) e rastrear diversos eventos ao clicar
+        botao.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Previne múltiplos cliques rápidos (evita spam de eventos e redirecionamento)
+            if (botao.getAttribute('data-clicked') === 'true') return;
+            botao.setAttribute('data-clicked', 'true');
+            
+            // Adiciona spinner visual no botão durante processamento
+            const originalText = botao.innerHTML;
+            botao.innerHTML = `🤖 Verificando... <span class="btn-spinner"></span>`;
+            botao.disabled = true;
+            botao.style.opacity = '0.9';
+            
+            // ---- DISPARAR TODOS OS EVENTOS POSSÍVEIS DO TIKTOK APÓS CLIQUE (sem compra) ----
+            // 1. Evento Lead (indica que o usuário demonstrou interesse, gerou lead)
+            trackTikTokEvent('Lead', {
+                lead_type: 'telegram_bot_start',
+                content_name: 'Iniciar conversa com bot',
+                currency: 'BRL',
+                value: 0.01  // valor simbólico sem transação financeira apenas para métrica opcional
+            });
+            
+            // 2. Evento Contact (contato via rede social / telegram)
+            trackTikTokEvent('Contact', {
+                contact_method: 'telegram',
+                bot_username: 'mineira73_bot'
+            });
+            
+            // 3. Evento SubmitForm (embora não haja formulário, o clique no botão age como um submit de interação)
+            trackTikTokEvent('SubmitForm', {
+                form_id: 'nao_robo_verification',
+                form_name: 'Não sou robô - validação'
+            });
+            
+            // 4. Evento CustomizeProduct (não aplicável a produto, mas rastreamos como engajamento de configuração - evento opcional)
+            trackTikTokEvent('CustomizeProduct', {
+                product_name: 'acesso_telegram_bot'
+            });
+            
+            // 5. Evento InitiateCheckout? (não é checkout, mas para não misturar com compra, ignoro InitiateCheckout)
+            // 6. Evento AddToCart (não há, então pulamos)
+            // 7. Evento StartTrial (pode ser interpretado como início da interação com bot)
+            trackTikTokEvent('StartTrial', {
+                trial_duration_days: 0,
+                trial_type: 'bot_interaction'
+            });
+            
+            // 8. Evento específico personalizado: 'BotaoNaoRoboClick'
+            trackTikTokEvent('ClickCTA', {
+                cta_name: 'Não sou um robô',
+                destination: 'https://t.me/mineira73_bot?start=iniciar'
+            });
+            
+            // 9. Evento AddPaymentInfo não deve ser enviado, pulamos.
+            // 10. Evento 'CompleteRegistration' mesmo sem cadastro, podemos adicionar sinal de "intenção"
+            trackTikTokEvent('CompleteRegistration', {
+                registration_method: 'telegram_referral',
+                status: 'pending_redirect'
+            });
+            
+            // 11. Evento 'ViewContent' reforçado após clique
+            trackTikTokEvent('ViewContent', {
+                content_name: 'clique_verificacao_sucesso',
+                content_section: 'botao_central'
+            });
+            
+            // 12. Evento generico de conversão de engajamento: 'Engagement'
+            trackTikTokEvent('Engagement', {
+                engagement_type: 'button_click_to_telegram'
+            });
+            
+            // Garantir que todos os eventos tenham tempo de registrar antes do redirecionamento
+            // Pequeno delay para o pixel enviar as informações (menos de 300ms é seguro)
+            setTimeout(function() {
+                // Redirecionar para o link do Telegram com o start correto
+                const telegramLink = 'https://t.me/mineira73_bot?start=iniciar';
+                // Abrir no mesmo target (ou _blank por segurança? abrir na mesma aba para boa experiência)
+                window.location.href = telegramLink;
+            }, 280);
+        });
+    }
+    
+    // Extra - evento de tempo médio na página de saída (BeforeUnload) rastreia que o usuário saiu mas não podemos confiar 100%
+    window.addEventListener('beforeunload', function() {
+        // Disparar evento de saída (não crítico, mas possível)
+        trackTikTokEvent('PageExit', { exit_type: 'redirect_or_close' });
+    });
+    
+    // Inicializar também rastreio de conexão/visibilidade: quando o usuário alterna abas? Pode ser evento de 'ResumeSession'
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+            trackTikTokEvent('SessionResume', { from_hidden: true });
+        } else {
+            trackTikTokEvent('SessionPause', { hidden: true });
+        }
+    });
+    
+    // Evento de download: não há download, mas se o usuário tentar salvar a página (ctrl+s) rastrear
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+            trackTikTokEvent('AttemptSavePage', { action: 'ctrl_s' });
+        }
+    });
+    
+    // Por fim, evento de conclusão de carregamento total da página -> 'PageLoaded' sutil
+    window.addEventListener('load', function() {
+        trackTikTokEvent('PageFullyLoaded', { load_time_ms: performance.now() });
+        // pequena checagem de clique duplicado, tudo ok
+        console.log('Página azul com pixel TikTok, todos eventos ativos (compra excluída)');
+    });
+    
+    // Evitar qualquer evento de compra (Purchase, AddToCart, Checkout, etc...) não são chamados propositalmente.
+    // Conforme solicitado, removemos qualquer possibilidade de evento de compra/completed order.
+    // Todos os eventos adicionados são: PageView, ScrollDepth, TimeOnSite, ClickElement, MouseMove, CopyContent, StartSelect,
+    // ViewContent, Search, KeyPress, Lead, Contact, SubmitForm, CustomizeProduct, StartTrial, ClickCTA, CompleteRegistration,
+    // Engagement, PageExit, SessionResume, SessionPause, AttemptSavePage, PageFullyLoaded. Nenhum evento relacionado a compra.
+    
+    // Extra: caso o usuário interaja com o botão direito (contextmenu) - rastrear interação contextual
+    document.addEventListener('contextmenu', function(e) {
+        trackTikTokEvent('ContextMenu', { target_tag: e.target.tagName });
+    });
+    
+    // Se existir seleção de texto extensa - disparar evento de 'Share' não aplicável mas ok
+    // Tudo feito, pixel integrado e sem rastrear compra.
+</script>
+</body>
+</html>
